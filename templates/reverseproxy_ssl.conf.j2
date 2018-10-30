@@ -71,8 +71,8 @@ server {
 
    ssl on;
 {% if item.value.custom_x509 is defined %}
-   ssl_certificate /etc/nginx/certs/{{ item.key }}.crt
-   ssl_certificate_key /etc/nginx/certs/{{ item.key }}.key
+   ssl_certificate /etc/nginx/certs/{{ item.key }}.crt;
+   ssl_certificate_key /etc/nginx/certs/{{ item.key }}.key;
 {% else %}
    ssl_certificate /etc/ssl/certs/ssl-cert-snakeoil.pem;
    ssl_certificate_key /etc/ssl/private/ssl-cert-snakeoil.key;
