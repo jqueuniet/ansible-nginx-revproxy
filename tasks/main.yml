@@ -44,6 +44,28 @@
   tags:
     - nginx-revproxy
 
+- name: Copy TLS certificates if necessary
+  copy:
+    src: "{{ item.key }}.crt"
+    dest: "/etc/ssl/nginx/{{ item.key }}.crt"
+  with_dict: "{{ nginx_revproxy_sites }}"
+  when:
+    - nginxinstalled is success
+    - item.value.custom_x509 is defined
+  tags:
+    - nginx-revproxy
+
+- name: Copy TLS keys if necessary
+  copy:
+    src: "{{ item.key }}.key"
+    dest: "/etc/ssl/nginx/{{ item.key }}.key"
+  with_dict: "{{ nginx_revproxy_sites }}"
+  when:
+    - nginxinstalled is success
+    - item.value.custom_x509 is defined
+  tags:
+    - nginx-revproxy
+
 - name: Add Site Config
   template:
     src: reverseproxy.conf.j2
